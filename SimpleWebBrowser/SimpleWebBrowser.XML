@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimpleWebBrowser</name>
+    </assembly>
+    <members>
+        <member name="T:SimpleWebBrowser.Tab">
+            <summary>
+            This class is used to define a Tab of our web browser. 
+            So we can use it like a unique entity composed of many various controls
+            </summary>
+            <remarks>
+            This class derives from TabPage which defines an empry Tab. We want the same behaviour for our custom Tab
+            </remarks>
+        </member>
+        <member name="F:SimpleWebBrowser.Tab.obj">
+            <summary>
+            This property is used to have a reference of Main (initially Form1)
+            So we can perform actions on it and call methods
+            </summary>
+            <remarks>
+            This makes the Designer crash beacause Main instancies some Tab objetcs which references themselves Main
+            But so far it compiles and works
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.goPreviousBtn">
+            <summary>
+            This button is used to go to the previous URL 
+            </summary>
+            <remarks>
+            The accessibility level is protected internal 
+            so we can access the button within the assembly and perform actions on it
+            Also internal, in case we need a derived type of this class
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.goNextBtn">
+            <summary>
+            This button is used to go to the next URL we can visit
+            </summary>
+            <remarks>
+            The accessibility level is protected internal 
+            so we can access the button within the assembly and perform actions on it
+            Also internal, in case we need a derived type of this class
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.reloadBtn">
+            <summary>
+            This button is used to perform a GET request at the specified URL 
+            </summary>
+            <remarks>
+            The accessibility level is protected internal 
+            so we can access the button within the assembly and perform actions on it
+            Also internal, in case we need a derived type of this class
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.urlEntry">
+            <summary>
+            This textox is used to enter a URL
+            </summary>
+            <remarks>
+            The accessibility level is protected internal 
+            so we can access the button within the assembly and perform actions on it
+            Also internal, in case we need a derived type of this class
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.htmlDisplay">
+            <summary>
+            This button is used to display the HTML we received from the GET request  
+            </summary>
+            <remarks>
+            The accessibility level is protected internal 
+            so we can access the button within the assembly and perform actions on it
+            Also internal, in case we need a derived type of this class
+            </remarks>
+        </member>
+        <member name="P:SimpleWebBrowser.Tab.localHistory">
+            <summary>
+            This list is used to have logs of the pages visited with the current tab
+            <remarks>
+            It is useful for the Previous and Next buttons
+            <see cref="P:SimpleWebBrowser.Tab.goPreviousBtn"/>
+            <see cref="P:SimpleWebBrowser.Tab.goNextBtn"/>
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:SimpleWebBrowser.Main.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Main.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SimpleWebBrowser.Main.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:SimpleWebBrowser.Request">
+            <summary>
+            We don't need to instantiate this class as all its methods are defined with static
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Request.getRequest(System.String,SimpleWebBrowser.Tab)">
+            <summary>
+            Sends a GET request to a website
+            <param name="url">The url of the targeted website</param>
+            <param name="Current">The tab 'from which' we send the request</param>
+            <remarks>
+            This method is marked with <c>async Task</c> to have an asynchronous method <c>GetResponseAsync()</c>
+            this way the UI isn't blocked by the GET and its callback
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Request.CreateRequest(SimpleWebBrowser.HistoryEntity.History,SimpleWebBrowser.Tab)">
+            <summary>
+            Sends a GET request to a website
+            <param name="history">The global history of the browser</param>
+            <param name="CurrentTab">The tab 'from which' we send the request</param>
+            <remarks>
+            This method is marked with <c>async</c> to have an asynchronous method <c>getRequest()</c>
+            The purpose of the function is to add the url to the history and make sure we have a valid URI
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Request.formatUrl(System.String)">
+            <summary>
+            Formats a string into a proper url
+            <param name="str">A string that may not be a correct url</param>
+            <remarks>
+            We just add the missing parts of a correct url scheme.
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:SimpleWebBrowser.Settings.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SimpleWebBrowser.Settings.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SimpleWebBrowser.Settings.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SimpleWebBrowser.Properties.Resources">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.CloseAppli">
+            <summary>
+              Recherche une chaîne localisée semblable à Exit.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.CloseTab">
+            <summary>
+              Recherche une chaîne localisée semblable à Close tab.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Error400">
+            <summary>
+              Recherche une chaîne localisée semblable à Error 400 Bad Request.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Error401">
+            <summary>
+              Recherche une chaîne localisée semblable à Error 401 Unauthorized.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Error403">
+            <summary>
+              Recherche une chaîne localisée semblable à Error 403 Forbidden.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Error404">
+            <summary>
+              Recherche une chaîne localisée semblable à Error 404 Page not Found.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.ErrorDNS">
+            <summary>
+              Recherche une chaîne localisée semblable à &quot;This site can’t be reached, its server DNS address could not be found&quot;.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Favourites">
+            <summary>
+              Recherche une chaîne localisée semblable à Favourites.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Log">
+            <summary>
+              Recherche une chaîne localisée semblable à History.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.NewTab">
+            <summary>
+              Recherche une chaîne localisée semblable à New Tab.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.NewWindow">
+            <summary>
+              Recherche une chaîne localisée semblable à Open a new window.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.NextPage">
+            <summary>
+              Recherche une chaîne localisée semblable à &gt;.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.OpenTab">
+            <summary>
+              Recherche une chaîne localisée semblable à New tab.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Options">
+            <summary>
+              Recherche une chaîne localisée semblable à More.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.PreviousPage">
+            <summary>
+              Recherche une chaîne localisée semblable à &lt;.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.ReloadPage">
+            <summary>
+              Recherche une chaîne localisée semblable à ↻.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.Settings">
+            <summary>
+              Recherche une chaîne localisée semblable à Settings.
+            </summary>
+        </member>
+        <member name="P:SimpleWebBrowser.Properties.Resources.WindowText">
+            <summary>
+              Recherche une chaîne localisée semblable à Fire Doge - The Fastest Browser .
+            </summary>
+        </member>
+    </members>
+</doc>
