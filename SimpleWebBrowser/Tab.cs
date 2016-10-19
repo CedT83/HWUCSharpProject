@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-/// <summary>
+﻿/// <summary>
 /// We do some graphical design here so we just need <c>System.Windows.Forms</c>
 /// to derives from TabPage and create our custom Tab
 /// </summary>
 using System.Windows.Forms;
 
-namespace SimpleWebBrowser
+namespace FireDogeWebBrowser
 {
     /// <summary>
     /// This class is used to define a Tab of our web browser. 
@@ -26,9 +25,30 @@ namespace SimpleWebBrowser
         /// </remarks>
         private Main obj;
 
-        //These attributes are all the objects used for designing one tab
+
+        /// <summary>
+        /// This attribute is used to define the color in the ribbon
+        /// </summary>
+        /// <remarks>
+        /// It possibly can have all the valid values for a RGB color. 
+        /// </remarks>
+        public System.Drawing.Color color = System.Drawing.Color.FromArgb(203, 168, 87);
+
+
+        // These attributes are all the objects used for designing one tab
+        // This LayoutPanel is used to split the form in to parts
+        // one for the ribbon, the other to display the HTML
         private TableLayoutPanel tableLayoutPanel1;
+
+        // This LayoutPanel is used to split the ribbon into 3 parts
+        // one for the buttons on the left, another for the textbox used for the URL entry
+        // the last one for the StripMenu on the right
         private TableLayoutPanel tableLayoutPanel2;
+
+        // This LayoutPanel divides the second column of the Panel above 
+        // in order to center the textbox in the previous panel'row
+        private TableLayoutPanel tableLayoutPanel3;
+
 
         /// <summary>
         /// This button is used to go to the previous URL 
@@ -40,6 +60,7 @@ namespace SimpleWebBrowser
         /// </remarks>
         protected internal Button goPreviousBtn { get; set; }
 
+
         /// <summary>
         /// This button is used to go to the next URL we can visit
         /// </summary>
@@ -49,6 +70,7 @@ namespace SimpleWebBrowser
         /// Also internal, in case we need a derived type of this class
         /// </remarks>
         protected internal Button goNextBtn { get; set; }
+
 
         /// <summary>
         /// This button is used to perform a GET request at the specified URL 
@@ -60,7 +82,6 @@ namespace SimpleWebBrowser
         /// </remarks>
         protected internal Button reloadBtn { get; set; }
 
-        private TableLayoutPanel tableLayoutPanel3;
 
         /// <summary>
         /// This textox is used to enter a URL
@@ -72,12 +93,15 @@ namespace SimpleWebBrowser
         /// </remarks>
         protected internal TextBox urlEntry { get; set; }
 
+        //Here we have some objects used for the design of the StripMenu
+        // Names are explicit
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem favouritesToolStripMenuItem;
+        protected internal ToolStripMenuItem favouritesToolStripMenuItem;
         private ToolStripMenuItem customizeToolStripMenuItem;
-        private ToolStripMenuItem newWindowwToolStripMenuItem;
-        private ToolStripMenuItem historyToolStripMenuItem;
+        private ToolStripMenuItem newWindowToolStripMenuItem;
+        protected internal ToolStripMenuItem historyToolStripMenuItem;
         private ToolStripMenuItem settingsToolStripMenuItem;
+        private ToolStripMenuItem homePageToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
 
         /// <summary>
@@ -98,13 +122,13 @@ namespace SimpleWebBrowser
         /// <see cref="goNextBtn"/>
         /// </remarks>
         /// </summary>
-        protected internal List<string> localHistory { get; set; }
+        protected internal NavigationList<string> localHistory { get; set; }
 
         //Class variable, in case we need to know how many instances of this class he have
         static private uint counter = 1;
 
 
-        public Tab(Form obj, ToolStripItem[] historyMenu)
+        public Tab(Form obj)
         {
             //This looks savage but we just initialise the objects used for the Tab
             //Nothing particular to say
@@ -118,11 +142,13 @@ namespace SimpleWebBrowser
             this.menuStrip1 = new MenuStrip();
             this.favouritesToolStripMenuItem = new ToolStripMenuItem();
             this.customizeToolStripMenuItem = new ToolStripMenuItem();
-            this.newWindowwToolStripMenuItem = new ToolStripMenuItem();
+            this.newWindowToolStripMenuItem = new ToolStripMenuItem();
             this.historyToolStripMenuItem = new ToolStripMenuItem();
             this.settingsToolStripMenuItem = new ToolStripMenuItem();
             this.exitToolStripMenuItem = new ToolStripMenuItem();
+            this.homePageToolStripMenuItem = new ToolStripMenuItem();
             this.htmlDisplay = new TextBox();
+            localHistory = new NavigationList<string>();
 
             //Suspend Layout to keep errors away and prevent from layout interferences 
             this.tableLayoutPanel1.SuspendLayout();
@@ -131,7 +157,7 @@ namespace SimpleWebBrowser
             this.menuStrip1.SuspendLayout();
 
             /// <summary>
-            /// <see cref="obj">Declaration for the property</see>
+            /// <see cref="obj">See the declaration of the attribute</see>
             /// So we can have a reference to Main and apply methods on it
             /// </summary>
             this.obj = (Main)obj;
@@ -143,9 +169,11 @@ namespace SimpleWebBrowser
             // Current tabPage
             // 
             this.Controls.Add(this.tableLayoutPanel1);
+            this.BackColor = System.Drawing.Color.FromArgb(242, 242, 242);
             this.Location = new System.Drawing.Point(8, 39);
             this.Name = "tabPage" + " " + counter++;
             this.Padding = new Padding(0);
+            this.Margin = new Padding(0);
             this.Size = new System.Drawing.Size(1878, 962);
             this.TabIndex = 0;
             this.Text = Properties.Resources.NewTab;
@@ -160,10 +188,11 @@ namespace SimpleWebBrowser
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.htmlDisplay, 0, 1);
-            this.tableLayoutPanel1.Dock = DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.htmlDisplay, 0,1);
             this.tableLayoutPanel1.Margin = new Padding(0);
+            this.tableLayoutPanel1.Padding = new Padding(0);
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
@@ -176,7 +205,7 @@ namespace SimpleWebBrowser
             // tableLayoutPanel2
             // Used to create the top ribbon, saparate controls and place them
             // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.NavajoWhite;
+            this.tableLayoutPanel2.BackColor = color;
             this.tableLayoutPanel2.ColumnCount = 5;
             this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 64F));
             this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 64F));
@@ -201,7 +230,7 @@ namespace SimpleWebBrowser
             // 
             // goPreviousBtn design
             // 
-            this.goPreviousBtn.BackColor = System.Drawing.Color.NavajoWhite;
+            this.goPreviousBtn.BackColor = color;
             this.goPreviousBtn.Dock = DockStyle.Fill;
             this.goPreviousBtn.FlatAppearance.BorderSize = 0;
             this.goPreviousBtn.FlatStyle = FlatStyle.Flat;
@@ -240,12 +269,11 @@ namespace SimpleWebBrowser
             this.reloadBtn.Text = Properties.Resources.ReloadPage;
             this.reloadBtn.UseVisualStyleBackColor = true;
 
-
             // 
             // tableLayoutPanel3
             // Used to center the textBox to enter the URL
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.NavajoWhite;
+            this.tableLayoutPanel3.BackColor = color;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.urlEntry, 0, 1);
@@ -254,7 +282,7 @@ namespace SimpleWebBrowser
             this.tableLayoutPanel3.Margin = new Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1400, 64);
@@ -275,7 +303,7 @@ namespace SimpleWebBrowser
             // menuStrip1 design
             // Used to display favourites and options
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.BackColor = color; ;
             this.menuStrip1.Dock = DockStyle.Fill;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new ToolStripItem[] {
@@ -294,19 +322,24 @@ namespace SimpleWebBrowser
             // favouritesToolStripMenuItem
             // To display favourites by clincking on it
             // 
+            this.favouritesToolStripMenuItem.BackColor = color;
+            this.favouritesToolStripMenuItem.DropDownItems.AddRange(this.obj.favouritesMenu.ToArray());
             this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
             this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(135, 60);
             this.favouritesToolStripMenuItem.Text = Properties.Resources.Favourites;
+
 
 
             // 
             // customizeToolStripMenuItem
             // Access the parameters of the Window that are editable
             // 
+            this.customizeToolStripMenuItem.BackColor = color;
             this.customizeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] {
-            this.newWindowwToolStripMenuItem,
+            this.newWindowToolStripMenuItem,
             this.historyToolStripMenuItem,
             this.settingsToolStripMenuItem,
+            this.homePageToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
             this.customizeToolStripMenuItem.Size = new System.Drawing.Size(113, 60);
@@ -317,9 +350,17 @@ namespace SimpleWebBrowser
             // newWindowwToolStripMenuItem
             // In case we want to execute another instance of the app. In a separated processus
             // 
-            this.newWindowwToolStripMenuItem.Name = "newWindowwToolStripMenuItem";
-            this.newWindowwToolStripMenuItem.Size = new System.Drawing.Size(274, 38);
-            this.newWindowwToolStripMenuItem.Text = Properties.Resources.NewWindow;
+            this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(274, 38);
+            this.newWindowToolStripMenuItem.Text = Properties.Resources.NewWindow;
+
+            // 
+            // newWindowwToolStripMenuItem
+            // In case we want to execute another instance of the app. In a separated processus
+            // 
+            this.homePageToolStripMenuItem.Name = "homePageToolStripMenuItem";
+            this.homePageToolStripMenuItem.Size = new System.Drawing.Size(274, 38);
+            this.homePageToolStripMenuItem.Text = Properties.Resources.HomePage;
 
 
             // 
@@ -329,7 +370,7 @@ namespace SimpleWebBrowser
             this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
             this.historyToolStripMenuItem.Size = new System.Drawing.Size(274, 38);
             this.historyToolStripMenuItem.Text = Properties.Resources.Log;
-            this.historyToolStripMenuItem.DropDownItems.AddRange(historyMenu);
+            this.historyToolStripMenuItem.DropDownItems.AddRange(this.obj.historyMenu.ToArray());
 
 
             // 
@@ -373,19 +414,27 @@ namespace SimpleWebBrowser
 
             //Here are the differents event we want our controls to handle
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.obj.ExitApp);
-            this.newWindowwToolStripMenuItem.Click += new System.EventHandler(this.obj.NewWindow);
+            this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.obj.NewWindow);
+            this.homePageToolStripMenuItem.Click += new System.EventHandler(this.obj.SetHomePage);
             this.reloadBtn.Click += new System.EventHandler(this.obj.reloadBtn);
-            this.goNextBtn.Click += new System.EventHandler(this.obj.NewTab);
+            this.goNextBtn.Click += new System.EventHandler(this.obj.goNext);
             this.urlEntry.KeyPress += new KeyPressEventHandler(this.obj.textBox_KeyPress);
+            this.goPreviousBtn.Click += new System.EventHandler(this.obj.goPrevious);
+
+            //Here we define the differents shortcut keys we want our StripMenu to handle
+            this.exitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.Q;
+            this.settingsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            this.newWindowToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            this.homePageToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
 
 
             //We call the mothds to perform the global layout on the tab
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

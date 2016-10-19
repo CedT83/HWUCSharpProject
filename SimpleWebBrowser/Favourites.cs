@@ -6,9 +6,9 @@ using System.Windows.Forms;
 namespace FireDogeWebBrowser
 {
     /// <summary>
-    /// This class represents an element of the history
+    /// This class represents an element of the Bookmarked pages
     /// </summary>
-    public class HistoryEntity
+    public class FavouritesEntity
     {
         /// <summary>
         /// This attribute is the name of the website
@@ -23,7 +23,7 @@ namespace FireDogeWebBrowser
         /// <summary>
         /// This is the constructor using all attributes
         /// </summary>
-        public HistoryEntity(string websiteName, string websiteUrl)
+        public FavouritesEntity(string websiteName, string websiteUrl)
         {
             this.name = websiteName;
             this.url = websiteUrl;
@@ -33,38 +33,38 @@ namespace FireDogeWebBrowser
         /// Empty constructor
         /// </summary>
         /// <remarks>
-        /// DO NOT REMOVE. It is mandatory for the serialization. 
+        ///  DO NOT REMOVE. It is mandatory for the serialization.
         /// </remarks>
-        public HistoryEntity()
+        public FavouritesEntity()
         {
 
         }
 
         /// <summary>
-        /// This nested class represents the History.
+        /// This nested class represents the list of Bookmarked pages.
         /// </summary>
         /// <remarks>
         /// It is a nested class, the choice of such class can by debatable. 
-        /// We simply encapsulate a generic List beacause this class is <c>Serializable</c> and generics like <c>List</c> can't be serialized
+        /// We simply encapsulate a generic List beacause this class is <c>Serializable</c> and the generics like List can't be serialized
         /// So we needed to have a convenient object that we can serialize
         /// </remarks>
         [Serializable]
-        public class History
+        public class Favourites
         {
             /// <summary>
             /// This is the reason why we need the Favourites class : We use a <c>List</c>
             /// which is not serializable 
             /// </summary>
-            public List<HistoryEntity> history = new List<HistoryEntity>();
+            public List<HistoryEntity> favourites = new List<HistoryEntity>();
 
             /// <summary>
             /// Constructor used generally used to set the attributes
             /// </summary>
             /// <param name="websiteName">Is for the name of the website</param>
             /// <param name="websiteUrl">Is for the URL of the website</param>
-            public History(string websiteName, string websiteUrl)
+            public Favourites(string websiteName, string websiteUrl)
             {
-                this.history.Add(new HistoryEntity(websiteName, websiteUrl));
+                this.favourites.Add(new HistoryEntity(websiteName, websiteUrl));
             }
 
             /// <summary>
@@ -73,7 +73,7 @@ namespace FireDogeWebBrowser
             /// <remarks>
             /// It is mandatory for the serialization
             /// </remarks>
-            public History()
+            public Favourites()
             {
                 
             }
@@ -86,7 +86,7 @@ namespace FireDogeWebBrowser
             /// </remarks>
             public void Add(string websiteName, string websiteUrl)
             {
-                this.history.Add(new HistoryEntity(websiteName, websiteUrl));
+                this.favourites.Add(new HistoryEntity(websiteName, websiteUrl));
             }
 
             /// <summary>
@@ -98,12 +98,13 @@ namespace FireDogeWebBrowser
             public List<HistoryEntity> toList()
             {
                 List<HistoryEntity> temp = new List<HistoryEntity>();
-                foreach(var e in this.history)
+                foreach (var e in this.favourites)
                 {
                     temp.Add(e);
                 }
                 return temp;
             }
+
 
             /// <summary>
             /// This methods serializes the object into a XML file
@@ -114,10 +115,10 @@ namespace FireDogeWebBrowser
             public void WriteXML()
             {
                 System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(History));
+                new System.Xml.Serialization.XmlSerializer(typeof(Favourites));
 
-                //We create the file if it does not exist
-                var path = Application.StartupPath + "//SerializationHistory.xml";
+                // We create the file if it does not exist
+                var path = Application.StartupPath + "//SerializationFavourites.xml";
                 System.IO.FileStream file = System.IO.File.Create(path);
 
                 writer.Serialize(file, this);
@@ -133,8 +134,8 @@ namespace FireDogeWebBrowser
             public void ReadXML()
             {
                 //First we make sure that a file exists by creating if needed
-                string path = Application.StartupPath + "//SerializationHistory.xml";
-                History temp = new History();
+                string path = Application.StartupPath + "//SerializationFavourites.xml";
+                Favourites temp = new Favourites();
                 if (!File.Exists(path))
                 {
                     //We write the content of an empty object in order to have
@@ -145,14 +146,16 @@ namespace FireDogeWebBrowser
                 // Now we can read the serialized object in the file.
                 //It is either the empty object we created just before of some data already stored in the file
                 System.Xml.Serialization.XmlSerializer reader =
-                    new System.Xml.Serialization.XmlSerializer(typeof(History));
+                    new System.Xml.Serialization.XmlSerializer(typeof(Favourites));
 
                 System.IO.StreamReader file = new System.IO.StreamReader(
-                    Application.StartupPath + "//SerializationHistory.xml");
+                    Application.StartupPath + "//SerializationFavourites.xml");
 
-                temp = (History)reader.Deserialize(file);
-                this.history = temp.history.FindAll(eval => eval.name.Equals(eval.name));
+                temp = (Favourites)reader.Deserialize(file);
+                this.favourites = temp.favourites.FindAll(eval => eval.name.Equals(eval.name));
                 file.Close();
+
+
             }
         }
     }

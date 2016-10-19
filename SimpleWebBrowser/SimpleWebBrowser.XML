@@ -1,10 +1,129 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>SimpleWebBrowser</name>
+        <name>FireDogeWebBrowser</name>
     </assembly>
     <members>
-        <member name="T:SimpleWebBrowser.Tab">
+        <member name="T:FireDogeWebBrowser.FavouritesEntity">
+            <summary>
+            This class represents an element of the Bookmarked pages
+            </summary>
+        </member>
+        <member name="F:FireDogeWebBrowser.FavouritesEntity.name">
+            <summary>
+            This attribute is the name of the website
+            </summary>
+        </member>
+        <member name="F:FireDogeWebBrowser.FavouritesEntity.url">
+            <summary>
+            This attribute is the URL of the website
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.#ctor(System.String,System.String)">
+            <summary>
+            This is the constructor using all attributes
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+            <remarks>
+             DO NOT REMOVE. It is mandatory for the serialization.
+            </remarks>
+        </member>
+        <member name="T:FireDogeWebBrowser.FavouritesEntity.Favourites">
+            <summary>
+            This nested class represents the list of Bookmarked pages.
+            </summary>
+            <remarks>
+            It is a nested class, the choice of such class can by debatable. 
+            We simply encapsulate a generic List beacause this class is <c>Serializable</c> and the generics like List can't be serialized
+            So we needed to have a convenient object that we can serialize
+            </remarks>
+        </member>
+        <member name="F:FireDogeWebBrowser.FavouritesEntity.Favourites.favourites">
+            <summary>
+            This is the reason why we need the Favourites class : We use a <c>List</c>
+            which is not serializable 
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.#ctor(System.String,System.String)">
+            <summary>
+            Constructor used generally used to set the attributes
+            </summary>
+            <param name="websiteName">Is for the name of the website</param>
+            <param name="websiteUrl">Is for the URL of the website</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+            <remarks>
+            It is mandatory for the serialization
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.Add(System.String,System.String)">
+            <summary>
+            This methods allows us to add an item to our custom list
+            </summary>
+            <remarks>
+            As we encapsulated a List we need to define some methods to access items of that list
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.toList">
+            <summary>
+            This methods allows us to extract our items as a list of <c>HistoryEntity</c>
+            </summary>
+            <remarks>
+            As we encapsulated a List we need to define some methods to access items of that list
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.WriteXML">
+            <summary>
+            This methods serializes the object into a XML file
+            </summary>
+            <remarks>
+            This is the main purpose of this class: being serialized
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.FavouritesEntity.Favourites.ReadXML">
+            <summary>
+            This methods deserializes the object from a XML file
+            </summary>
+            <remarks>
+            This is the main purpose of this class: being deserialized
+            </remarks>
+        </member>
+        <member name="T:FireDogeWebBrowser.NavigationList`1">
+            <summary>
+            This class derives from a simple List&lt;T> class and is
+            an enhenced version of it. We added methods to move through the list
+            and everything is hidden to the user
+            </summary>
+            <typeparam name="T">There is no restriction for the type used</typeparam>
+        </member>
+        <member name="P:FireDogeWebBrowser.NavigationList`1.CurrnetIndex">
+            <summary>
+            This method returns the current index where we stand in the list
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.NavigationList`1.MoveNext">
+            <summary>
+            This method gives the next item in the list
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.NavigationList`1.MovePrevious">
+            <summary>
+            This method gives the previous item in the list
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.NavigationList`1.Current">
+            <summary>
+            This method gives the current item in the list
+            </summary>
+        </member>
+        <member name="T:FireDogeWebBrowser.Tab">
             <summary>
             This class is used to define a Tab of our web browser. 
             So we can use it like a unique entity composed of many various controls
@@ -13,7 +132,7 @@
             This class derives from TabPage which defines an empry Tab. We want the same behaviour for our custom Tab
             </remarks>
         </member>
-        <member name="F:SimpleWebBrowser.Tab.obj">
+        <member name="F:FireDogeWebBrowser.Tab.obj">
             <summary>
             This property is used to have a reference of Main (initially Form1)
             So we can perform actions on it and call methods
@@ -23,7 +142,15 @@
             But so far it compiles and works
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.goPreviousBtn">
+        <member name="F:FireDogeWebBrowser.Tab.color">
+            <summary>
+            This attribute is used to define the color in the ribbon
+            </summary>
+            <remarks>
+            It possibly can have all the valid values for a RGB color. 
+            </remarks>
+        </member>
+        <member name="P:FireDogeWebBrowser.Tab.goPreviousBtn">
             <summary>
             This button is used to go to the previous URL 
             </summary>
@@ -33,7 +160,7 @@
             Also internal, in case we need a derived type of this class
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.goNextBtn">
+        <member name="P:FireDogeWebBrowser.Tab.goNextBtn">
             <summary>
             This button is used to go to the next URL we can visit
             </summary>
@@ -43,7 +170,7 @@
             Also internal, in case we need a derived type of this class
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.reloadBtn">
+        <member name="P:FireDogeWebBrowser.Tab.reloadBtn">
             <summary>
             This button is used to perform a GET request at the specified URL 
             </summary>
@@ -53,7 +180,7 @@
             Also internal, in case we need a derived type of this class
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.urlEntry">
+        <member name="P:FireDogeWebBrowser.Tab.urlEntry">
             <summary>
             This textox is used to enter a URL
             </summary>
@@ -63,7 +190,7 @@
             Also internal, in case we need a derived type of this class
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.htmlDisplay">
+        <member name="P:FireDogeWebBrowser.Tab.htmlDisplay">
             <summary>
             This button is used to display the HTML we received from the GET request  
             </summary>
@@ -73,55 +200,281 @@
             Also internal, in case we need a derived type of this class
             </remarks>
         </member>
-        <member name="P:SimpleWebBrowser.Tab.localHistory">
+        <member name="P:FireDogeWebBrowser.Tab.localHistory">
             <summary>
             This list is used to have logs of the pages visited with the current tab
             <remarks>
             It is useful for the Previous and Next buttons
-            <see cref="P:SimpleWebBrowser.Tab.goPreviousBtn"/>
-            <see cref="P:SimpleWebBrowser.Tab.goNextBtn"/>
+            <see cref="P:FireDogeWebBrowser.Tab.goPreviousBtn"/>
+            <see cref="P:FireDogeWebBrowser.Tab.goNextBtn"/>
             </remarks>
             </summary>
         </member>
-        <member name="F:SimpleWebBrowser.Main.components">
+        <member name="T:FireDogeWebBrowser.HistoryEntity">
             <summary>
-            Required designer variable.
+            This class represents an element of the history
             </summary>
         </member>
-        <member name="M:SimpleWebBrowser.Main.Dispose(System.Boolean)">
+        <member name="F:FireDogeWebBrowser.HistoryEntity.name">
+            <summary>
+            This attribute is the name of the website
+            </summary>
+        </member>
+        <member name="F:FireDogeWebBrowser.HistoryEntity.url">
+            <summary>
+            This attribute is the URL of the website
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.#ctor(System.String,System.String)">
+            <summary>
+            This is the constructor using all attributes
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+            <remarks>
+            DO NOT REMOVE. It is mandatory for the serialization. 
+            </remarks>
+        </member>
+        <member name="T:FireDogeWebBrowser.HistoryEntity.History">
+            <summary>
+            This nested class represents the History.
+            </summary>
+            <remarks>
+            It is a nested class, the choice of such class can by debatable. 
+            We simply encapsulate a generic List beacause this class is <c>Serializable</c> and generics like <c>List</c> can't be serialized
+            So we needed to have a convenient object that we can serialize
+            </remarks>
+        </member>
+        <member name="F:FireDogeWebBrowser.HistoryEntity.History.history">
+            <summary>
+            This is the reason why we need the Favourites class : We use a <c>List</c>
+            which is not serializable 
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.#ctor(System.String,System.String)">
+            <summary>
+            Constructor used generally used to set the attributes
+            </summary>
+            <param name="websiteName">Is for the name of the website</param>
+            <param name="websiteUrl">Is for the URL of the website</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+            <remarks>
+            It is mandatory for the serialization
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.Add(System.String,System.String)">
+            <summary>
+            This methods allows us to add an item to our custom list
+            </summary>
+            <remarks>
+            As we encapsulated a List we need to define some methods to access items of that list
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.toList">
+            <summary>
+            This methods allows us to extract our items as a list of <c>HistoryEntity</c>
+            </summary>
+            <remarks>
+            As we encapsulated a List we need to define some methods to access items of that list
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.WriteXML">
+            <summary>
+            This methods serializes the object into a XML file
+            </summary>
+            <remarks>
+            This is the main purpose of this class: being serialized
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.HistoryEntity.History.ReadXML">
+            <summary>
+            This methods deserializes the object from a XML file
+            </summary>
+            <remarks>
+            This is the main purpose of this class: being deserialized
+            </remarks>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.#ctor">
+            <summary>
+            The void constructor of the class Main.
+            <remarks>
+            Launches the method that creates the GUI
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.Main_Load(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is called when the form Main is loaded
+            </summary>
+            <param name="sender">Refers to the form Main</param>
+            <param name="e">Refers to the event "onLoad" of the form</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.reloadBtn(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is for the click on the reload button of the tabs
+            </summary>
+            <param name="sender">Refers to the button</param>
+            <param name="e">Refers to the Click event</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.goNext(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is for the click on the goNext button of the tabs
+            </summary>
+            <param name="sender">Refers to the button</param>
+            <param name="e">Refers to the Click event</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.goPrevious(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is for the click on the goPrevious button of the tabs
+            </summary>
+            <param name="sender">Refers to the button</param>
+            <param name="e">Refers to the Click event</param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.NewWindow(System.Object,System.EventArgs)">
+            <summary>
+            This event handler opens a new instance of the application into a new process
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.NewTab(System.Object,System.EventArgs)">
+            <summary>
+            This event handler opens a new Tab in the application
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.CloseTab(System.Object,System.EventArgs)">
+            <summary>
+            This event handler closes the current tab
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.textBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            This event handler captures the Enter key when textbox is focused
+            We retrieve the page which the URL is in the textbox
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.OnFormClosing(System.Windows.Forms.FormClosingEventArgs)">
+            <summary>
+            We modify the default event handler used when we close a form 
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.ExitApp(System.Object,System.EventArgs)">
+            <summary>
+            An event handler to close the app programatically
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.LinkMenuStrip(System.Object,System.Windows.Forms.TabControlEventArgs)">
+            <summary>
+            This event links the MenuStrip created in Main.Designer to the tabs when selected
+            </summary>
+            <remaks>
+            We have to do this because when we create a new tab the link is destroyed. Has to be fixed
+            </remaks>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.OpenUrlFromHistory(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is called when we click on an item in the history menu to retrieve the page
+            </summary>
+            <remarks>
+            Needs to be refactored 
+            </remarks>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.OpenUrlFromFavourites(System.Object,System.EventArgs)">
+            <summary>
+            This event handler is called when we click on an item in the favourites menu to retrieve the page
+            </summary>
+            <remarks>
+            Needs to be refactored 
+            </remarks>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.Shortcuts(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Handle key events on the form Main.
+            </summary>
+            <remarks>
+            Needs to be fixed. Not working yet
+            </remarks>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.SetHomePage(System.Object,System.EventArgs)">
+            <summary>
+            Defines the current displayed page as home page
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:FireDogeWebBrowser.Main.components">
+            <summary>
+            Contains the composants of the GUI
+            </summary>
+        </member>
+        <member name="F:FireDogeWebBrowser.Main.historyMenu">
+            <summary>
+            List of the items in the history
+            </summary>
+        </member>
+        <member name="F:FireDogeWebBrowser.Main.favouritesMenu">
+            <summary>
+            List of the items in the favourites
+            </summary>
+        </member>
+        <member name="M:FireDogeWebBrowser.Main.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:SimpleWebBrowser.Main.InitializeComponent">
+        <member name="M:FireDogeWebBrowser.Main.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:SimpleWebBrowser.Program.Main">
+        <member name="M:FireDogeWebBrowser.Program.Main">
             <summary>
             The main entry point for the application.
             </summary>
         </member>
-        <member name="T:SimpleWebBrowser.Request">
+        <member name="T:FireDogeWebBrowser.Request">
             <summary>
             We don't need to instantiate this class as all its methods are defined with static
             </summary>
         </member>
-        <member name="M:SimpleWebBrowser.Request.getRequest(System.String,SimpleWebBrowser.Tab)">
+        <member name="M:FireDogeWebBrowser.Request.getRequest(System.String,FireDogeWebBrowser.Tab)">
             <summary>
             Sends a GET request to a website
             <param name="url">The url of the targeted website</param>
-            <param name="Current">The tab 'from which' we send the request</param>
+            <param name="CurrentTab">The tab 'from which' we send the request</param>
             <remarks>
             This method is marked with <c>async Task</c> to have an asynchronous method <c>GetResponseAsync()</c>
             this way the UI isn't blocked by the GET and its callback
             </remarks>
             </summary>
         </member>
-        <member name="M:SimpleWebBrowser.Request.CreateRequest(SimpleWebBrowser.HistoryEntity.History,SimpleWebBrowser.Tab)">
+        <member name="M:FireDogeWebBrowser.Request.CreateRequest(FireDogeWebBrowser.HistoryEntity.History,FireDogeWebBrowser.Tab)">
             <summary>
             Sends a GET request to a website
             <param name="history">The global history of the browser</param>
@@ -132,7 +485,7 @@
             </remarks>
             </summary>
         </member>
-        <member name="M:SimpleWebBrowser.Request.formatUrl(System.String)">
+        <member name="M:FireDogeWebBrowser.Request.formatUrl(System.String)">
             <summary>
             Formats a string into a proper url
             <param name="str">A string that may not be a correct url</param>
@@ -141,125 +494,118 @@
             </remarks>
             </summary>
         </member>
-        <member name="F:SimpleWebBrowser.Settings.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:SimpleWebBrowser.Settings.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:SimpleWebBrowser.Settings.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:SimpleWebBrowser.Properties.Resources">
+        <member name="T:FireDogeWebBrowser.Properties.Resources">
             <summary>
               Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.ResourceManager">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.ResourceManager">
             <summary>
               Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Culture">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Culture">
             <summary>
               Remplace la propriété CurrentUICulture du thread actuel pour toutes
               les recherches de ressources à l'aide de cette classe de ressource fortement typée.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.CloseAppli">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.AddToFavourites">
+            <summary>
+              Recherche une chaîne localisée semblable à Bookmark this page.
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.Properties.Resources.CloseAppli">
             <summary>
               Recherche une chaîne localisée semblable à Exit.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.CloseTab">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.CloseTab">
             <summary>
               Recherche une chaîne localisée semblable à Close tab.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Error400">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Error400">
             <summary>
               Recherche une chaîne localisée semblable à Error 400 Bad Request.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Error401">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Error401">
             <summary>
               Recherche une chaîne localisée semblable à Error 401 Unauthorized.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Error403">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Error403">
             <summary>
               Recherche une chaîne localisée semblable à Error 403 Forbidden.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Error404">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Error404">
             <summary>
               Recherche une chaîne localisée semblable à Error 404 Page not Found.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.ErrorDNS">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.ErrorDNS">
             <summary>
               Recherche une chaîne localisée semblable à &quot;This site can’t be reached, its server DNS address could not be found&quot;.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Favourites">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Favourites">
             <summary>
               Recherche une chaîne localisée semblable à Favourites.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Log">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.HomePage">
+            <summary>
+              Recherche une chaîne localisée semblable à Define as Home Page.
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Log">
             <summary>
               Recherche une chaîne localisée semblable à History.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.NewTab">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.NewTab">
             <summary>
               Recherche une chaîne localisée semblable à New Tab.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.NewWindow">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.NewWindow">
             <summary>
               Recherche une chaîne localisée semblable à Open a new window.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.NextPage">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.NextPage">
             <summary>
               Recherche une chaîne localisée semblable à &gt;.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.OpenTab">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.OpenTab">
             <summary>
               Recherche une chaîne localisée semblable à New tab.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Options">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Options">
             <summary>
               Recherche une chaîne localisée semblable à More.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.PreviousPage">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.PreviousPage">
             <summary>
               Recherche une chaîne localisée semblable à &lt;.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.ReloadPage">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.ReloadPage">
             <summary>
               Recherche une chaîne localisée semblable à ↻.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.Settings">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.Settings">
             <summary>
               Recherche une chaîne localisée semblable à Settings.
             </summary>
         </member>
-        <member name="P:SimpleWebBrowser.Properties.Resources.WindowText">
+        <member name="P:FireDogeWebBrowser.Properties.Resources.WindowText">
             <summary>
               Recherche une chaîne localisée semblable à Fire Doge - The Fastest Browser .
             </summary>

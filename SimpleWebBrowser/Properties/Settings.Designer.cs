@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleWebBrowser.Properties {
+namespace FireDogeWebBrowser.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,18 @@ namespace SimpleWebBrowser.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.hw.ac.uk")]
+        public string Homepage {
+            get {
+                return ((string)(this["Homepage"]));
+            }
+            set {
+                this["Homepage"] = value;
             }
         }
     }

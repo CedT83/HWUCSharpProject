@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleWebBrowser.Properties {
+namespace FireDogeWebBrowser.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SimpleWebBrowser.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleWebBrowser.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FireDogeWebBrowser.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace SimpleWebBrowser.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bookmark this page.
+        /// </summary>
+        internal static string AddToFavourites {
+            get {
+                return ResourceManager.GetString("AddToFavourites", resourceCulture);
             }
         }
         
@@ -129,6 +138,15 @@ namespace SimpleWebBrowser.Properties {
         internal static string Favourites {
             get {
                 return ResourceManager.GetString("Favourites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Define as Home Page.
+        /// </summary>
+        internal static string HomePage {
+            get {
+                return ResourceManager.GetString("HomePage", resourceCulture);
             }
         }
         

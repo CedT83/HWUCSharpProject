@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SimpleWebBrowser
+namespace FireDogeWebBrowser
 {
     /// <summary>
     /// We don't need to instantiate this class as all its methods are defined with static
@@ -13,7 +13,7 @@ namespace SimpleWebBrowser
         /// <summary>
         /// Sends a GET request to a website
         /// <param name="url">The url of the targeted website</param>
-        /// <param name="Current">The tab 'from which' we send the request</param>
+        /// <param name="CurrentTab">The tab 'from which' we send the request</param>
         /// <remarks>
         /// This method is marked with <c>async Task</c> to have an asynchronous method <c>GetResponseAsync()</c>
         /// this way the UI isn't blocked by the GET and its callback

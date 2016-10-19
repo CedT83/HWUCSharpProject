@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimpleWebBrowser")]
+[assembly: AssemblyTitle("FireDogeWebBrowser")]
 [assembly: AssemblyDescription("A simple web browser for a Coursework in Industrial Programming")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Cedric Tremolosa Foundation")]
-[assembly: AssemblyProduct("SimpleWebBrowser")]
+[assembly: AssemblyProduct("FireDogeWebBrowser")]
 [assembly: AssemblyCopyright("Copyright ©  2016 Cedric TREMOLOSA")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

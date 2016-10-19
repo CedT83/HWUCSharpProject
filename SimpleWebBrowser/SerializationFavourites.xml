@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Favourites xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <favourites>
+    <HistoryEntity>
+      <name>ISEN</name>
+      <url>www.isen.fr</url>
+    </HistoryEntity>
+  </favourites>
+</Favourites>
