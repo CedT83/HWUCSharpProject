@@ -103,6 +103,7 @@ namespace FireDogeWebBrowser
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem homePageToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem bookmarkPageToolStripMenuItem;
 
         /// <summary>
         /// This button is used to display the HTML we received from the GET request  
@@ -147,6 +148,7 @@ namespace FireDogeWebBrowser
             this.settingsToolStripMenuItem = new ToolStripMenuItem();
             this.exitToolStripMenuItem = new ToolStripMenuItem();
             this.homePageToolStripMenuItem = new ToolStripMenuItem();
+            this.bookmarkPageToolStripMenuItem = new ToolStripMenuItem();
             this.htmlDisplay = new TextBox();
             localHistory = new NavigationList<string>();
 
@@ -323,10 +325,20 @@ namespace FireDogeWebBrowser
             // To display favourites by clincking on it
             // 
             this.favouritesToolStripMenuItem.BackColor = color;
+            this.favouritesToolStripMenuItem.DropDownItems.Add(this.bookmarkPageToolStripMenuItem);
             this.favouritesToolStripMenuItem.DropDownItems.AddRange(this.obj.favouritesMenu.ToArray());
             this.favouritesToolStripMenuItem.Name = "favouritesToolStripMenuItem";
             this.favouritesToolStripMenuItem.Size = new System.Drawing.Size(135, 60);
             this.favouritesToolStripMenuItem.Text = Properties.Resources.Favourites;
+
+
+            // 
+            // bookmarkPageToolStripMenuItem
+            // In case we want to execute another instance of the app. In a separated processus
+            // 
+            this.bookmarkPageToolStripMenuItem.Name = "bookmarkPageToolStripMenuItem";
+            this.bookmarkPageToolStripMenuItem.Size = new System.Drawing.Size(274, 38);
+            this.bookmarkPageToolStripMenuItem.Text = Properties.Resources.BookmarkPage;
 
 
 
@@ -347,7 +359,7 @@ namespace FireDogeWebBrowser
 
 
             // 
-            // newWindowwToolStripMenuItem
+            // newWindowToolStripMenuItem
             // In case we want to execute another instance of the app. In a separated processus
             // 
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
@@ -416,6 +428,7 @@ namespace FireDogeWebBrowser
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.obj.ExitApp);
             this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.obj.NewWindow);
             this.homePageToolStripMenuItem.Click += new System.EventHandler(this.obj.SetHomePage);
+            this.bookmarkPageToolStripMenuItem.Click += new System.EventHandler(this.obj.BookmarkPage);
             this.reloadBtn.Click += new System.EventHandler(this.obj.reloadBtn);
             this.goNextBtn.Click += new System.EventHandler(this.obj.goNext);
             this.urlEntry.KeyPress += new KeyPressEventHandler(this.obj.textBox_KeyPress);
@@ -426,6 +439,7 @@ namespace FireDogeWebBrowser
             this.settingsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             this.newWindowToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
             this.homePageToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
+            this.bookmarkPageToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
 
 
             //We call the mothds to perform the global layout on the tab

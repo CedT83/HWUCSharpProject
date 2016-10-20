@@ -2,8 +2,12 @@
 <Favourites xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <favourites>
     <HistoryEntity>
-      <name>ISEN</name>
-      <url>www.isen.fr</url>
+      <name>isen.fr</name>
+      <url>isen.fr</url>
+    </HistoryEntity>
+    <HistoryEntity>
+      <name>http://www2.macs.hw.ac.uk/~cpt4</name>
+      <url>http://www2.macs.hw.ac.uk/~cpt4</url>
     </HistoryEntity>
   </favourites>
 </Favourites>

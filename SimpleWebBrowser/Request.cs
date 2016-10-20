@@ -80,6 +80,9 @@ namespace FireDogeWebBrowser
             //We formate the url in such a way that we have this scheme: "http://www.website.com"
             //The method .ToLower() isn't necessary but we keep in, just in case
             string url = Request.formatUrl(CurrentTab.urlEntry.Text).ToLower();
+            //If the textbox is empty we don't need to go further and stop everything
+            if (url.Equals(""))
+                return;
             try
             {
                 Uri uri = new Uri(url);

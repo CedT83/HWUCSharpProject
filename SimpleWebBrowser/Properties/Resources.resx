@@ -120,6 +120,9 @@
   <data name="AddToFavourites" xml:space="preserve">
     <value>Bookmark this page</value>
   </data>
+  <data name="BookmarkPage" xml:space="preserve">
+    <value>Bookmark this page</value>
+  </data>
   <data name="CloseAppli" xml:space="preserve">
     <value>Exit</value>
   </data>

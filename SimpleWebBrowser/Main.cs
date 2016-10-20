@@ -80,13 +80,13 @@ namespace FireDogeWebBrowser
         public void reloadBtn(object sender, EventArgs e)
         {
             //We get the tab from which the button belongs
-            Tab CurrentTab = (Tab)this.tabControl2.SelectedTab;
+            Tab currentTab = (Tab)this.tabControl2.SelectedTab;
             //We make sure the history is not empty
-            if(CurrentTab.localHistory.LongCount() > 1)
+            if(currentTab.localHistory.LongCount() > 1)
             {
                 //We set the URL bar to the last entry and retrieve the page
-                CurrentTab.urlEntry.Text = CurrentTab.localHistory.Last();
-                Request.CreateRequest(history, CurrentTab);
+                currentTab.urlEntry.Text = currentTab.localHistory.Last();
+                Request.CreateRequest(history, currentTab);
             }
         }
 
@@ -98,13 +98,13 @@ namespace FireDogeWebBrowser
         public void goNext(object sender, EventArgs e)
         {
             //We get the tab from which the button belongs
-            Tab CurrentTab = (Tab)this.tabControl2.SelectedTab;
+            Tab currentTab = (Tab)this.tabControl2.SelectedTab;
             //We make sure the history is not empty
-            if (CurrentTab.localHistory.Any())
+            if (currentTab.localHistory.Any())
             {
                 //We set the URL bar to the last entry and retrieve the page
-                CurrentTab.urlEntry.Text = CurrentTab.localHistory.MoveNext;
-                Request.CreateRequest(history, CurrentTab);
+                currentTab.urlEntry.Text = currentTab.localHistory.MoveNext;
+                Request.CreateRequest(history, currentTab);
             }
         }
 
@@ -115,11 +115,11 @@ namespace FireDogeWebBrowser
         /// <param name="e">Refers to the Click event</param>
         public void goPrevious(object sender, EventArgs e)
         {
-            Tab CurrentTab = (Tab)this.tabControl2.SelectedTab;
-            if (CurrentTab.localHistory.Any())
+            Tab currentTab = (Tab)this.tabControl2.SelectedTab;
+            if (currentTab.localHistory.Any())
             {
-                CurrentTab.urlEntry.Text = CurrentTab.localHistory.MovePrevious;
-                Request.CreateRequest(history, CurrentTab);
+                currentTab.urlEntry.Text = currentTab.localHistory.MovePrevious;
+                Request.CreateRequest(history, currentTab);
             }
         }
 
@@ -328,6 +328,19 @@ namespace FireDogeWebBrowser
             Properties.Settings.Default.Homepage = currentTab.urlEntry.Text;
             //We save the changes
             Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Bookmark the current displayed page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BookmarkPage(object sender, EventArgs e)
+        {
+            //We get the url of the selected tab
+            Tab currentTab = (Tab)this.tabControl2.SelectedTab;
+            if(currentTab.localHistory.LongCount() > 0)
+                favourites.Add(currentTab.localHistory.Last(), currentTab.localHistory.Last());
         }
     }
 }

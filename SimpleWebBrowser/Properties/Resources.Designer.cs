@@ -70,6 +70,15 @@ namespace FireDogeWebBrowser.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bookmark this page.
+        /// </summary>
+        internal static string BookmarkPage {
+            get {
+                return ResourceManager.GetString("BookmarkPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exit.
         /// </summary>
         internal static string CloseAppli {

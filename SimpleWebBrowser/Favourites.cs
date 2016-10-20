@@ -136,26 +136,19 @@ namespace FireDogeWebBrowser
                 //First we make sure that a file exists by creating if needed
                 string path = Application.StartupPath + "//SerializationFavourites.xml";
                 Favourites temp = new Favourites();
-                if (!File.Exists(path))
+                if (File.Exists(path))
                 {
-                    //We write the content of an empty object in order to have
-                    //the correct pattern for our XML file to be deserialized
-                    temp.WriteXML();
+                    // Now we can read the serialized object in the file.
+                    System.Xml.Serialization.XmlSerializer reader =
+                        new System.Xml.Serialization.XmlSerializer(typeof(Favourites));
+
+                    System.IO.StreamReader file = new System.IO.StreamReader(
+                        Application.StartupPath + "//SerializationFavourites.xml");
+
+                    temp = (Favourites)reader.Deserialize(file);
+                    this.favourites = temp.favourites.FindAll(eval => eval.name.Equals(eval.name));
+                    file.Close();
                 }
-
-                // Now we can read the serialized object in the file.
-                //It is either the empty object we created just before of some data already stored in the file
-                System.Xml.Serialization.XmlSerializer reader =
-                    new System.Xml.Serialization.XmlSerializer(typeof(Favourites));
-
-                System.IO.StreamReader file = new System.IO.StreamReader(
-                    Application.StartupPath + "//SerializationFavourites.xml");
-
-                temp = (Favourites)reader.Deserialize(file);
-                this.favourites = temp.favourites.FindAll(eval => eval.name.Equals(eval.name));
-                file.Close();
-
-
             }
         }
     }

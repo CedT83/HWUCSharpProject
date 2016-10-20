@@ -426,6 +426,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:FireDogeWebBrowser.Main.BookmarkPage(System.Object,System.EventArgs)">
+            <summary>
+            Bookmark the current displayed page
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="F:FireDogeWebBrowser.Main.components">
             <summary>
             Contains the composants of the GUI
@@ -511,6 +518,11 @@
             </summary>
         </member>
         <member name="P:FireDogeWebBrowser.Properties.Resources.AddToFavourites">
+            <summary>
+              Recherche une chaîne localisée semblable à Bookmark this page.
+            </summary>
+        </member>
+        <member name="P:FireDogeWebBrowser.Properties.Resources.BookmarkPage">
             <summary>
               Recherche une chaîne localisée semblable à Bookmark this page.
             </summary>
